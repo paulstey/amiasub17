@@ -1,0 +1,65 @@
+
+\documentclass[10pt]{article}
+\usepackage{cite}
+\usepackage[numbers]{natbib}
+\renewcommand{\baselinestretch}{1.2}
+
+
+\title{\fontsize{14}{14} Predicting Rare Adverse Events with Modified Stochastic AdaBoost}
+\author{}
+\date{}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+
+
+
+\maketitle
+
+\begin{abstract}
+The problem of predicting rare events is one that emerges frequently in biomedical and health informatics. In the context of classification problems, the prediction of rare events relies on the ability handle severe class imbalance in the dependent variable. In this paper, we explore a number approaches for handling severe class imbalance. In particular, we describe a several Monte Carlo studies using simulated data to investigate the relative merits of two approaches for handling class imbalance; the first relies on the well-known SMOTE pre-processing algorithm \cite{chawla02}, the second is a modified version of stochastic AdaBoost we developed particularly for classification with highly imbalanced outcome variables. Finally, we explore these methods in a real-data example predicting adverse events resulting from drug interactions. 
+\end{abstract}
+
+\section{Background}
+
+Class imbalance in prediction problems is exceedingly common across many disciplines. The field of biomedical informatics represents a particularly striking example, given how frequently researchers are faced with the challenge of predicting rare events. 
+
+In the most general sense, when we refer to ``class imbalance'' we are concerned with those instances in which the dependent variable in our data is categorical and at least one of the categories is under-represented. For instance, consider the case in which we are interested in building a model that predicts the underlying conditions of patients visiting the emergency room. Suppose we have as training data 1,000,000 health records containing information such as previous emergency room visits, family medical histories, \textit{et cetera}. Also suppose that this training data has the patients' eventual diagnoses included. Now, if we were to use this training data to build a classification model that predicts patients' diagnoses, we would likely find that our model has great difficultly predicting rare disorders. Consider the case of Holt-Oram syndrome, which is a genetic disorder causing skeletal abnormalities and is known to cause cardiac problems; Holt-Oram syndrome is estimated to occur in about 1 in 100,000 individuals, making it quite a rare condition \cite{huang02}. 
+
+
+The primary difficulty in these cases is that the rare class in the data set is often of greatest interest to the researcher. And depending is that a researcher can build a 
+
+In this paper we develop and test a method of handling severe class imbalance in supervised learning problems.
+
+In general, the problem of producing an accurate classifier stems from the tendency for  
+
+
+\subsection{Methods for Class Imbalance}
+
+\subsubsection{SMOTE}
+
+\subsection{Boosting}
+
+\section{Methods}
+
+\section{Results}
+
+\section{Conclusion}
+
+%\begin{thebibliography}{9}
+%\bibitem{smote}
+%Leslie Lamport,
+  %\emph{\LaTeX: a document preparation system},
+  %Addison Wesley, Massachusetts,
+  %2nd edition,
+  %1994.
+  
+%\end{thebibliography}
+\newpage 
+
+\bibliography{refs}
+\bibliographystyle{unsrtnat}
+
+\end{document}
