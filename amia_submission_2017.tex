@@ -77,34 +77,24 @@ Boosting methods have a long history, and they have proven to be some of the mos
 
 
 \begin{algorithm}
-\caption{AdaBoost.M1}\label{adaboost}
+\caption{AdaBoost}\label{adaboost}
 \begin{algorithmic}[1]
 	\Procedure{adaboost}{}
-		\State $\textit{stringlen} \gets \text{length of }\textit{string}$
-		\State $i \gets \textit{patlen}$
-		\BState \emph{top}:
-		\If {$i > \textit{stringlen}$} \Return false
-		\EndIf
-		\State $j \gets \textit{patlen}$
-		\BState \emph{loop}:
-		\If {$\textit{string}(i) = \textit{path}(j)$}
-		\State $j \gets j-1$.
-		\State $i \gets i-1$.
-		\State \textbf{goto} \emph{loop}.
-		\State \textbf{close};
-		\EndIf
-		\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-		\State \textbf{goto} \emph{top}.
-		
+
 		\State Initialize weights, $w_i = 1/N$ for $i = 1, 2, ... N$
 		\For{$t = 1...T$}
-			\State Fit classifier $h_t(x)$ to training data using $w_i$
+			\State Fit classifier $h_t(x)$ to training data using weights $w_i$
 			\State Compute error: 
-				\State $$\epsilon_t = \frac{\sum_{i=1}^{N} w_i I(y_i \ne h_t(x_i))}{\sum_{i = 1}^{N} w_i}$$
+				\State $$\epsilon_t = \frac{\sum_{i=1}^{N} w_i \cdot I(y_i \ne h_t(x_i))}{\sum_{i = 1}^{N} w_i}$$
 			\State Compute $\alpha_t$:
 				\State $$\alpha_t = \frac{1}{2} \text{log} \left(\frac{1 - \epsilon_t}{\epsilon_t} \right)$$
-			\State Set weights for next round:
-				\State $$w_i \gets w_i \cdot \text{exp}$$
+			\State Update weights for next round:
+				\State \[ w_i \gets w_i \cdot \left\{ \begin{array}{lr}
+				                                                        e^{-\alpha_t} & : h_t(x_i) = y_i \\
+				                                                        e^{\alpha_t} & : h_t(x_i) \ne y_i \\
+				                                                      \end{array}
+				                                            \right.
+				          \]
 		\EndFor
 	\EndProcedure
 \end{algorithmic}
