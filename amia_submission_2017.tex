@@ -4,8 +4,7 @@
 \usepackage{cite}
 \usepackage{amsmath}
 \usepackage[numbers]{natbib}
-%\usepackage[linesnumbered,ruled]{algorithm2e}
-
+\usepackage[margin=1.75in]{geometry}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 
@@ -23,6 +22,7 @@
 \def\BState{\State\hskip-\ALG@thistlm}
 \makeatother
 
+
 \begin{document}
 
 
@@ -31,32 +31,31 @@
 \maketitle
 
 \begin{abstract}
-The problem of predicting rare events is one that emerges frequently in biomedical and health informatics. In the context of classification problems, the prediction of rare events relies on the ability to handle severe class imbalance in the dependent variable. In this paper, we explore a number approaches for handling severe class imbalance. In particular, we describe several Monte Carlo studies using simulated data to investigate the relative merits of three approaches for handling class imbalance; the first relies on the well-known SMOTE pre-processing algorithm \cite{chawla02}, the second uses an over-sampling procedure as part of the bagging procedure stochastic boosting, the third is a modified version of stochastic AdaBoost we developed that incorporates both an over-sampling step as well as cost-sensitive learning. Finally, we explore these three methods in a real-data example predicting adverse events resulting from drug interactions. 
+The problem of predicting rare events is one that emerges frequently in biomedical and health informatics. In the context of classification problems, the prediction of rare events relies on the ability to handle severe class imbalance in the dependent variable. The current project explores a number approaches for handling severe class imbalance. In particular, several Monte Carlo studies using simulated data investigate the relative merits of three approaches for handling class imbalance; the first relies on the well-known SMOTE pre-processing algorithm \cite{chawla02}, the second uses an over-sampling procedure as part of the bagging procedure stochastic boosting, the third is a modified version of stochastic AdaBoost that incorporates both an over-sampling step as well as cost-sensitive learning. Finally, these three methods are explore in a real-data example predicting adverse events resulting from drug interactions involving plant compounds. 
 \end{abstract}
 
 \section{Background}
 
 Class imbalance in prediction problems is exceedingly common across many disciplines. The field of biomedical informatics represents a particularly striking example, given how frequently researchers are faced with the challenge of predicting rare events. 
 
-In the most general sense, when we refer to ``class imbalance'' we are concerned with those instances in which the dependent variable in our data is categorical and at least one of the categories is under-represented. For instance, consider the case in which we are interested in building a model that predicts the underlying conditions of patients visiting the emergency room. Suppose we have as training data 100,000 health records containing information such as previous emergency room visits, family medical histories, \textit{et cetera}. Also suppose that this training data has the patients' eventual diagnoses included. For example, consider the case of Long QT Syndrome (LQTS), a condition with a prevalence close to 1:2000 \cite{schwartz09}. We would expect to find about 50 patients in our training data with LQTS. If we were to use this training data to build a classification model that predicts future patients' diagnoses, we would likely find that our model has great difficultly predicting LQTS---our trained model simply has not seen enough example of LQTS to accurately predict the disorder. 
+In this paper, the phrase ``class imbalance'' references the phenomenon in which the dependent variable in a data set is categorical and at least one of the categories is under-represented. For instance, consider the case of building a model that predicts the underlying condition of patients visiting the emergency room. Suppose there are training data consisting of 100,000 health records containing information such as previous emergency room visits, family medical histories, \textit{et cetera}. Also suppose that this training data has the patients' eventual diagnoses included. For example, consider the case of Long QT Syndrome (LQTS), a condition with a prevalence close to 1:2000 \cite{schwartz09}. It would be expected that LQTS manifest in about 50 patients in the training data. If one were to use these training data to build a classification model that predicts future patients' diagnoses, one would likely find the fitted model has great difficultly predicting LQTS---the model simply has not seen enough example of LQTS to accurately predict the disorder. 
 
 The problem of class imbalance in supervised learning has been studied frequently (e.g., XXXX, XXXX, XXXX). And while there has been considerable progress, a general method for handling the most severe cases of class imbalance remains elusive. Many of the existing methods have been primarily used in cases of imbalanced data where the minority class might be 20\% or 30\% of the sample (e.g., XXXX, XXXX). However in the biomedical field a ``rare'' case might be one that presents 5\% or 1\% of the time or less. And in these cases of \textit{severe} class imbalance, there remains considerable potential for improvement. 
 
-%The primary difficulty in these cases is that the rare class in the data set is often of greatest interest to the researcher. And depending is that a researcher can build a 
-
-%In this paper we develop and test a method of handling severe class imbalance in supervised learning problems.
-
-%In general, the problem of producing an accurate classifier stems from the tendency for  
-
 
 \subsection{Methods for Handling Class Imbalance}
-In this paper we consider two major categories of approaches for handling sever class imbalance. The first is sampling-based, and attempts to correct the imbalance through some form of over- or under-sampling. This approach has the obvious advantage that the degree of over- or under-sampling can be finely tuned to the desired level of the researcher. The second category of approaches is a species of cost-sensitive learning; these are methods that preferentially weight the minority class cases in the model fitting process. That is, the model's loss function more severely penalizes the misclassification of majority-class cases. We discuss example from both categories of methods in this paper.
+This paper consider two major categories of approaches for handling sever class imbalance. The first is sampling-based, and attempts to correct the imbalance through some form of over- or under-sampling. This approach has the obvious advantage that the degree of over- or under-sampling can be finely tuned to the desired level of the researcher. The second category of approaches is a species of cost-sensitive learning; these are methods that preferentially weight the minority class cases in the model fitting process. That is, the model's loss function more severely penalizes the misclassification of majority-class cases. Example from both categories of methods are examined in this paper.
 
 \subsubsection{SMOTE}
 
-\subsection{Boosting}
-Boosting methods have a long history, and they have proven to be some of the most effective model-fitting methods for supervised learning problems. Boosting is falls in to the category of ensemble methods; the essential feature of ensemble methods is the aggregation of many different models in to a single overall model for classification or regression. In the case of boosting for classification problems, the basic idea is that we combine many ``weak'' classifiers to form one ``committee'' \cite{hastie09}. This simple idea has proven to be extremely powerful. Moreover, the boosting framework is incredibly flexible in that the classifiers to be aggregated can be selected from any number of common modeling approaches---trees have proven especially productive.
 
+
+\subsection{Boosting}
+Boosting methods have a long history, and they have proven to be some of the most effective model-fitting methods for supervised learning problems. Boosting falls in to the category of ensemble methods; the essential feature of ensemble methods is the aggregation of many different models in to a single overall model for classification or regression. In the case of boosting for classification problems, the basic idea is that many ``weak'' classifiers are combined to form one ``committee'' \cite{hastie09}. This simple idea has proven to be extremely powerful. Moreover, the boosting framework is incredibly flexible in that the classifiers to be aggregated can be selected from any number of common modeling approaches---trees have proven especially productive.
+
+AdaBoost (XXXX) is typically considered to be the first boosting-type algorithm for classification. The concept underlying AdaBoost is quite elegant. The AdaBoost model fitting process begins by assigning each observation equal weights. In a general sense, these weights represent how severely the loss function penalizes misclassification of a given observation. The algorithm then iterates through several ``rounds''. At each round, a single decision tree with a depth of one is fitted, then before proceeding to the next round the algorithm updates the weights for each observation according to whether or not the observation was correctly classified or not in the current round. This has the effect of generating a model fitting procedure in which the algorithm ``tries harder'' to correctly classify those observations that were previously misclassified. Algorithm 1 below provides a more detailed explication of AdaBoost.
+
+ 
 %\begin{algorithm}
    % \SetKwInOut{Input}{Input}
     %\SetKwInOut{Output}{Output}
